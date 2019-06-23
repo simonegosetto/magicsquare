@@ -1,5 +1,7 @@
 {
   "name": "MagicSquare",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
