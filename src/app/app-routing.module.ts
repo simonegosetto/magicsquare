@@ -14,7 +14,9 @@ const routes: Routes = [
   {
     path: 'tutorial',
     loadChildren: './tutorial/tutorial.module#TutorialPageModule'
-  }
+  },
+  { path: 'singleplayer', loadChildren: './singleplayer/singleplayer.module#SingleplayerPageModule' },
+  { path: 'multiplayer', loadChildren: './multiplayer/multiplayer.module#MultiplayerPageModule' }
 ];
 
 @NgModule({

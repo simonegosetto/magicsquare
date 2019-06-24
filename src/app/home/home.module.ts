@@ -5,7 +5,6 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import {GameModule} from '../core/components/game/game.module';
 
 @NgModule({
   imports: [
@@ -17,8 +16,7 @@ import {GameModule} from '../core/components/game/game.module';
         path: '',
         component: HomePage
       }
-    ]),
-    GameModule
+    ])
   ],
   declarations: [HomePage]
 })

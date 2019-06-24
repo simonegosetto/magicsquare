@@ -10,5 +10,32 @@
 </ion-header>
 
 <ion-content>
-  <app-game></app-game>
+  <ion-card class="welcome-card">
+    <ion-img src="/assets/shapes.svg"></ion-img>
+    <ion-card-header>
+      <ion-card-subtitle>Home Page</ion-card-subtitle>
+      <ion-card-title>Welcome to Magic Square</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>bla bla bla</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="primary" (click)="navTo('singleplayer')">Single Player</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="success" (click)="navTo('multiplayer')" [disabled]="!gs?.isOnline()">Multiplayer Online</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="warning" (click)="navTo('tutorial')">Tutorial</ion-button>
+    </ion-col>
+  </ion-row>
+
+
 </ion-content>

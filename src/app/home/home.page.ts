@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
+import {GlobalService} from '../core/services/global.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,11 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private router: Router,
+              public gs: GlobalService) {}
+
+  navTo(route) {
+    this.router.navigateByUrl(route);
+  }
 
 }
