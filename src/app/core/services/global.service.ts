@@ -8,8 +8,8 @@ import { LoadingService } from './loading.service';
 import { ToastService } from './toast.service';
 import { environment } from '../../../environments/environment';
 import { IGatewayResponse } from '../interfaces/gateway-response';
-import {Users} from '../interfaces/users';
-import { NetworkInterface } from '@ionic-native/network-interface/ngx';
+import { Users } from '../interfaces/users';
+import { Device } from '@ionic-native/device/ngx';
 
 @Injectable({
     providedIn: 'root'
@@ -20,17 +20,13 @@ export class GlobalService {
                 public platform: Platform,
                 public loading: LoadingService,
                 public toast: ToastService,
-                private networkInterface: NetworkInterface
-    ) {
-        this.isDesktop = this.platform.is('desktop');
-    }
+                private _device: Device
+    ) { }
 
-    public online = false;
-
+    private online = false;
     public http_json_headers = new HttpHeaders().set('content-type', 'application/json').set('Access-Control-Allow-Origin', '*');
     public user: Users;
-    public logged = true;
-    public isDesktop = false;
+    private logged = true;
     public isDevMode = isDevMode();
     public _config = {
         GTW_DBOX: environment.backendUrl + '/FD_DataServiceGatewayUUID.php'
@@ -85,19 +81,7 @@ export class GlobalService {
         return value;
     }
 
-    public uuid() {
-        if (!this.isOnline()) {
-            return '0';
-        } else {
-
-        }
-    }
-
     public checkConnection(): boolean {
-        this.networkInterface.getWiFiIPAddress()
-            .then(address => console.log(address))
-            .catch(error => console.error(`Unable to get IP: ${error}`));
-
         const networkState = navigator['connection'].type || navigator['connection'].effectiveType;
 
         const Connection = window['Connection'] || {
@@ -146,6 +130,24 @@ export class GlobalService {
         return this.online;
     }
 
+    public isDesktop(): boolean {
+        return this.platform.is('desktop');
+    }
+
+    public isLogged(): boolean {
+        return this.logged;
+    }
+
+    public uuid() {
+        if (!this.isOnline()) {
+            return 'OFFLINE';
+        } else if (isDevMode()) {
+            return 'DEV';
+        } else {
+            return this._device.uuid;
+        }
+    }
+
     //////////////////////// INIT /////////////////////////
 
     public init() {
@@ -166,8 +168,7 @@ export class GlobalService {
             localStorage.setItem('token', this.user.UUID);
             localStorage.setItem('user', JSON.stringify(this.user));
             },
-        error => this.toast.present(error.message, 5000)
-            );
+        error => this.toast.present(error.message, 5000));
     }
 
     //////////////////////// ERROR ENDLER /////////////////////////

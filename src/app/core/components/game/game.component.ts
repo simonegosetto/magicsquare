@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Square} from './square/square';
 import {ToastService} from '../../services/toast.service';
 import {HttpClient} from '@angular/common/http';
+import {GlobalService} from '../../services/global.service';
 
 @Component({
   selector: 'app-game',
@@ -12,8 +13,12 @@ export class GameComponent implements OnInit {
 
     constructor(
         private toast: ToastService,
-        private http: HttpClient
+        private http: HttpClient,
+        public gs: GlobalService
     ) { }
+
+    @Input() multiplayer = false;
+    @Input() opponent = { uuid: '', points: 0 };
 
     //
     // Private

@@ -1,6 +1,10 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {Router} from '@angular/router';
 import {GlobalService} from '../core/services/global.service';
+import {PlatformLocation} from '@angular/common';
+import {ModalService} from '../core/services/modal.service';
+import {NavController} from '@ionic/angular';
+import {ModalQueueComponent} from '../multiplayer/modal-queue.component';
 
 @Component({
   selector: 'app-home',
@@ -9,11 +13,48 @@ import {GlobalService} from '../core/services/global.service';
 })
 export class HomePage {
 
+    @HostListener('document:ionBackButton', ['$event'])
+    // @HostListener('window:popstate', ['$event'])
+    private overrideHardwareBackAction($event: any) {
+        $event.detail.register(100, async () => {
+            this._modal.dismissIfActive();
+            // this._popover.dismissIfActive();
+            this._navCtrl.back();
+        });
+    }
+
   constructor(private router: Router,
-              public gs: GlobalService) {}
+              public gs: GlobalService,
+              private _modal: ModalService,
+              private _navCtrl: NavController,
+              private _location: PlatformLocation) {
+      this._location.onPopState(() => {
+          this._modal.dismissIfActive();
+          // this._popover.dismissIfActive();
+      });
+  }
 
   navTo(route) {
-    this.router.navigateByUrl(route);
+    switch (route) {
+        case 'singleplayer':
+        case 'tutorial':
+            this.router.navigateByUrl(route);
+            break;
+        case 'multiplayer':
+            this.router.navigateByUrl(route); return;
+          if (this.gs.isLogged()) {
+              const modalQueue = this._modal.present(ModalQueueComponent, null);
+              modalQueue.then(result => {
+                  if (result.data) {
+                      debugger;
+                      console.log(result.data);
+                      this.router.navigateByUrl(route);
+                  }
+              });
+          }
+          break;
+    }
+
   }
 
 }

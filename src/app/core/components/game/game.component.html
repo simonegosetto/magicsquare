@@ -1,4 +1,10 @@
-<app-counter [count]="squareCounter()"></app-counter>
+<app-counter [count]="squareCounter()" *ngIf="!multiplayer"></app-counter>
+
+<app-header-multiplayer *ngIf="multiplayer"
+                        [user]="{uuid: gs.uuid(), points: squareCounter()}"
+                        [opponent]="opponent"
+></app-header-multiplayer>
+
 <ion-grid class="ion-padding">
   <ion-row *ngFor="let row of squaresRows" style="padding: 0" align-items-center>
     <ion-col *ngFor="let square of row" style="padding: 0">
@@ -9,7 +15,7 @@
   </ion-row>
 </ion-grid>
 
-<ion-row>
+<ion-row [hidden]="multiplayer">
   <ion-col>
     <ion-button color="primary" expand="block" (click)="gameReset()">Reset</ion-button>
   </ion-col>
