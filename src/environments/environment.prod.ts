@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUrl: 'http://localhost/BackEnd'
+  backendUrl: 'https://task.simonegosetto.tech/BackEnd'
 };

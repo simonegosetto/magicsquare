@@ -41,14 +41,11 @@ export class HomePage {
             this.router.navigateByUrl(route);
             break;
         case 'multiplayer':
-            this.router.navigateByUrl(route); return;
           if (this.gs.isLogged()) {
               const modalQueue = this._modal.present(ModalQueueComponent, null);
               modalQueue.then(result => {
                   if (result.data) {
-                      debugger;
-                      console.log(result.data);
-                      this.router.navigateByUrl(route);
+                      this.router.navigate(['/multiplayer/' + result.data.id_match]);
                   }
               });
           }
