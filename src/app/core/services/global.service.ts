@@ -157,7 +157,7 @@ export class GlobalService {
     //////////////////////// DATA /////////////////////////
 
     sendUUID() {
-        this.callGateway('NwuMxg6XUWqr5q0z7/NyEdDbLK3xZ8+wDFxvJfiJPiAtWy0tSVYtWy1q8AwNjJg/EuiUtxSnmGruvF6cx52K9VACv/VCxG+sPA@@',
+        this.callGateway('CXlS+LdceFm9nhFxNmW0rVMhYIScZP3DpSf4odckC/8tWy0tSVYtWy0waux6dCHH/Fq0llCR4C04IRRHCa4DtDZfLhtkVFFalg@@',
             '\'' + this.uuid() + '\'', false).subscribe(data => {
             if (data.hasOwnProperty('error')) {
                 this.toast.present(data.error);

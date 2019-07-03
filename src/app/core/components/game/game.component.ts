@@ -53,8 +53,6 @@ export class GameComponent implements OnInit {
         }
     }
 
-
-
     squareClick(squareClicked: Square) {
         console.log('cliccato su ', squareClicked);
         if (!squareClicked.clicked) {
@@ -105,7 +103,6 @@ export class GameComponent implements OnInit {
         const xyCurrent = x.toString() + y.toString();
         const movesPossible = this.squareCoordinates[xyCurrent];
         movesPossible.forEach(move => {
-            console.log('move', move);
             this.squaresRows.forEach((row) => {
                 row.forEach((col: Square) => {
                     const xyCol = col.x.toString() + col.y.toString();

@@ -17,14 +17,21 @@ export class ModalQueueComponent implements AfterViewInit  {
     //
     private timeOutQueue = null;
 
+    //
+    // Public
+    //
+    public localStorage = localStorage;
+
     ngAfterViewInit() {
-        localStorage.removeItem('queueID');
-        this.timeOutQueue = setTimeout(() => this.checkQueue(), 1000);
+        setTimeout(() => {
+            localStorage.removeItem('queueID');
+            this.timeOutQueue = setTimeout(() => this.checkQueue(), 1000);
+        }, 0);
     }
 
     checkQueue() {
         clearTimeout(this.timeOutQueue);
-        this.gs.callGateway('oU0PuEP0ffbr68Pmi7e9Q/sJCgJctpUiEoW/ew2TQVgtWy0tSVYtWy0cMYxCtJouNKVsbkOsvWw6J5xsjgCQls+JdgERlJZiCQ@@',
+        this.gs.callGateway('vKh5jvTkLIcpv1rL57TE6bieeXPo5chIlpNb/HGqwGMtWy0tSVYtWy3tyDI2ZL0wTTvmrelP4Cwp+kIPz18uOqfZFTDhIkUV+w@@',
             '\'' + localStorage.getItem('token') + '\',' + localStorage.getItem('queueID'), false, 0)
             .subscribe(data => {
                     if (data.hasOwnProperty('error')) {
@@ -35,7 +42,6 @@ export class ModalQueueComponent implements AfterViewInit  {
                     if (data.recordset.length > 0 && data.recordset[0] !== null) {
                         const [ opponent ] = data.recordset;
                         if (opponent.hasOwnProperty('id_match')) {
-                            localStorage.removeItem('queueID');
                             this.close(opponent);
                         } else {
                             localStorage.setItem('queueID', opponent.id);
@@ -52,11 +58,13 @@ export class ModalQueueComponent implements AfterViewInit  {
     }
 
     close(opponent) {
+        localStorage.removeItem('queueID');
         clearTimeout(this.timeOutQueue);
         this.modal.dismiss(opponent);
     }
 
     cancel() {
+        localStorage.removeItem('queueID');
         clearTimeout(this.timeOutQueue);
         this.modal.dismiss(undefined);
     }
