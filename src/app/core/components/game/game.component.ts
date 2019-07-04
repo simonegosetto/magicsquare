@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Square} from './square/square';
 import {ToastService} from '../../services/toast.service';
 import {HttpClient} from '@angular/common/http';
@@ -18,7 +18,10 @@ export class GameComponent implements OnInit {
     ) { }
 
     @Input() multiplayer = false;
-    @Input() opponent = { uuid: '', points: 0 };
+    @Input() opponent = { uuid: '', points: 0, finish: 0 };
+
+    @Output() scoreChanged = new EventEmitter();
+    @Output() gameFinished = new EventEmitter();
 
     //
     // Private
@@ -59,6 +62,7 @@ export class GameComponent implements OnInit {
             if (this.squarePrev === undefined) {
                 squareClicked.clicked = true;
                 this.squarePrev = {...squareClicked} as Square;
+                this.scoreChanged.emit(squareClicked);
             } else {
                 const xyPrev = this.squarePrev.x.toString() + this.squarePrev.y.toString();
                 const xyCurrent = squareClicked.x.toString() + squareClicked.y.toString();
@@ -67,6 +71,8 @@ export class GameComponent implements OnInit {
                     squareClicked.clicked = true;
                     this.squarePrev = {...squareClicked} as Square;
 
+                    // notifico il click al padre
+                    this.scoreChanged.emit(squareClicked);
                     // controllo se posso fare altre mosse o meno
                     this.gameCheckIfFinisched(squareClicked);
                 }
@@ -76,7 +82,8 @@ export class GameComponent implements OnInit {
 
     gameCheckIfFinisched(squareClicked) {
         if (this.isFinished(squareClicked)) {
-            this.toast.present('Finito con ' + this.squareCounter() + ' punti !').then(() => this.gameReset());
+            this.gameFinished.emit(null);
+            this.toast.present('Finito con ' + this.squareCounter() + ' punti !')/*.then(() => this.gameReset())*/;
         }
     }
 
@@ -98,6 +105,9 @@ export class GameComponent implements OnInit {
     }
 
     isFinished(squareCurrent: Square): boolean {
+        if (squareCurrent === undefined) {
+            return;
+        }
         let finish = true;
         const {x, y} = squareCurrent;
         const xyCurrent = x.toString() + y.toString();

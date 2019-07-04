@@ -5,5 +5,6 @@
 </ion-header>
 
 <ion-content>
-  <app-game [multiplayer]="true" [opponent]="opponent"></app-game>
+  <app-game [multiplayer]="true" [opponent]="opponent"
+            (scoreChanged)="scoreChange($event)" (gameFinished)="sendOwnFinish()" ></app-game>
 </ion-content>

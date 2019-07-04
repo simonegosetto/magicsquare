@@ -73,9 +73,17 @@ begin
     -- controllo che il match sia coerente con l'utente che fa la chiamata
     if exists (select 0 from games where id = in_id_match  and (player1 = localPlayerID or player2 = localPlayerID)) then
         if exists (select 0 from games where id = in_id_match  and player1 = localPlayerID) then
-            select player2 as uuid, score2 as points from games where id = in_id_match;
+            select u.uuid as uuid,
+                   g.score2 as points
+            from games g
+            inner join users u on g.player2 = u.id
+            where g.id = in_id_match;
         else
-            select player1 as uuid, score1 as points from games where id = in_id_match;
+            select u.uuid as uuid,
+                   g.score1 as points
+            from games g
+            inner join users u on g.player1 = u.id
+            where g.id = in_id_match;
         end if;
     else
         select 'Match not found !';
