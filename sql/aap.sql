@@ -66,28 +66,35 @@ end
 -----------------------------------------------------------------------------------------------------
 
 begin
--- in_id_match
+
     declare localPlayerID int;
     select id into localPlayerID from users where UUID = in_uuid;
 
-    -- controllo che il match sia coerente con l'utente che fa la chiamata
-    if exists (select 0 from games where id = in_id_match  and (player1 = localPlayerID or player2 = localPlayerID)) then
-        if exists (select 0 from games where id = in_id_match  and player1 = localPlayerID) then
-            select u.uuid as uuid,
-                   g.score2 as points
-            from games g
-            inner join users u on g.player2 = u.id
-            where g.id = in_id_match;
+    /*if exists (select 0 from games where id = in_id_match and data_fine is not null) then
+        select 'Match already finished !' as error;
+    else*/
+        -- controllo che il match sia coerente con l'utente che fa la chiamata
+        if exists (select 0 from games where id = in_id_match  and (player1 = localPlayerID or player2 = localPlayerID)) then
+            if exists (select 0 from games where id = in_id_match  and player1 = localPlayerID) then
+                select u.uuid as uuid,
+                       g.score2 as points,
+                       case when g.finish2 is not null then 1 else 0 end as finish
+                from games g
+                inner join users u on g.player2 = u.id
+                where g.id = in_id_match;
+            else
+                select u.uuid as uuid,
+                       g.score1 as points,
+                       case when g.finish1 is not null then 1 else 0 end as finish
+                from games g
+                inner join users u on g.player1 = u.id
+                where g.id = in_id_match;
+            end if;
         else
-            select u.uuid as uuid,
-                   g.score1 as points
-            from games g
-            inner join users u on g.player1 = u.id
-            where g.id = in_id_match;
+            select 'Match not found !' as error;
         end if;
-    else
-        select 'Match not found !';
-    end if;
+
+    -- end if;
 
 end
 
