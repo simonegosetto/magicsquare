@@ -64,9 +64,20 @@ export class ModalQueueComponent implements AfterViewInit  {
     }
 
     cancel() {
-        localStorage.removeItem('queueID');
-        clearTimeout(this.timeOutQueue);
-        this.modal.dismiss(undefined);
+        this.gs.callGateway('DL/yHOfSfn+OhQn/gLvQHoLV8grC7bRHpDSnwlJy3z4tWy0tSVYtWy2E3qNZ9BnM7P7NSq3kVX/bOo41JZRJjpQIp0Ra0vHtCg@@',
+            '\'' + localStorage.getItem('token') + '\'' , false, 0)
+            .subscribe(data => {
+                if (data.hasOwnProperty('error')) {
+                    this.gs.toast.present(data.error);
+                    return;
+                }
+
+                localStorage.removeItem('queueID');
+                clearTimeout(this.timeOutQueue);
+                this.modal.dismiss(undefined);
+
+            },
+            error => this.gs.toast.present(error.message, 5000));
     }
 
 }

@@ -32,7 +32,7 @@ BEGIN
     	    data_mod = NOW()
     	where player1 = localPlayerID and stato = 0;
 
-        insert into games(player1, player2, data_inizio) -- TODO a regime levare data fine !!!!
+        insert into games(player1, player2, data_inizio)
         select player1, localPlayerID, NOW() from queue where id = localQueueID limit 1;
 
     	update queue
@@ -45,12 +45,12 @@ BEGIN
     	select * from queue where id = localQueueID;
 
     -- se sono già in coda ma non avevo l'id sul client
-    elseif exists (select 0 from queue where player2 is null and player1 = localPlayerID) THEN
+    elseif exists (select 0 from queue where player2 is null and player1 = localPlayerID and stato != 2) THEN
 
-       select id from queue where player2 is null and player1 = localPlayerID;
+       select id from queue where player2 is null and player1 = localPlayerID and stato != 2;
 
     -- se non c'è nessuno in coda ed io non lo ero già mi ci metto
-    elseif not exists (select 0 from queue where player2 is null and player1 = localPlayerID) THEN
+    elseif not exists (select 0 from queue where player2 is null and player1 = localPlayerID and stato != 2) THEN
 
     	insert into queue(data_ins,data_mod,player1) VALUES(NOW(), NOW(), localPlayerID);
     	select LAST_INSERT_ID() as id;

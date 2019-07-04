@@ -89,6 +89,7 @@ export class MultiplayerPage implements OnInit, OnDestroy {
         let message = 'YOU ';
         let color: string;
         if (this.matchOwn.finish === 1 && this.opponent.finish === 1) {
+            console.log('you', this.matchOwn.points, 'opponent', this.opponent.points);
             if (this.matchOwn.points > this.opponent.points) {
                 message += 'WON !';
                 color = 'success';
@@ -99,7 +100,7 @@ export class MultiplayerPage implements OnInit, OnDestroy {
                 message += 'LOST !';
                 color = 'danger';
             }
-            this._gs.toast.present(message, 0, true, color).then(() => this._router.navigateByUrl('home'));
+            this._gs.toast.present(message, 0, true, color); // .then(() => this._router.navigateByUrl('home'));
         }
     }
 
