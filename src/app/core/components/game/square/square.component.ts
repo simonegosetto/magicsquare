@@ -18,7 +18,9 @@ export class SquareComponent  {
             const {x,y} = this.data;
             const {x: x2, y: y2} = this.dataPrev;
             if (x === x2 && y === y2) {
-                return '/FF0000';
+                return {
+                    'background-color': '#efefef'
+                };
             } else {
                 return '';
             }

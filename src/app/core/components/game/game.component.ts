@@ -28,6 +28,7 @@ export class GameComponent implements OnInit {
     //
     private squarePrev: Square;
     private squareCoordinates = {};
+    private squareBombs = ['azzurra', 'gialla', 'nera', 'rosa', 'rossa'];
 
     //
     // Public
@@ -94,7 +95,7 @@ export class GameComponent implements OnInit {
         ];
         for (let y = 0; y < 10; y++) {
             for (let x = 0; x < 10; x++) {
-                this.squaresRows[y].push({x: x + 1, y: y + 1, clicked: false});
+                this.squaresRows[y].push({x: x + 1, y: y + 1, clicked: false, image: this.squareBombs[Math.floor(Math.random() * this.squareBombs.length)]});
             }
         }
 

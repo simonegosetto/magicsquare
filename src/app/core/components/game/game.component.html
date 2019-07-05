@@ -8,7 +8,7 @@
 <ion-grid class="ion-padding">
   <ion-row *ngFor="let row of squaresRows" style="padding: 0" align-items-center>
     <ion-col *ngFor="let square of row" style="padding: 0">
-      <app-square [data]="{ x: square.x, y: square.y, clicked: square.clicked }"
+      <app-square [data]="{ x: square.x, y: square.y, clicked: square.clicked, image: square.image }"
                   [dataPrev]="squarePrev"
                   (click)="squareClick(square)"></app-square>
     </ion-col>

@@ -1,4 +1,4 @@
 <div class="quadrato" >
-  <ion-img width="100%" height="100%" src="https://via.placeholder.com/50{{squareSelectPrev(square)}}" *ngIf="data.clicked"></ion-img>
-  <ion-img width="100%" height="100%" src="https://via.placeholder.com/50/FFFFFF" *ngIf="!data.clicked"></ion-img>
+  <ion-img width="100%" height="100%" [ngStyle]="squareSelectPrev(square)" src="/assets/bombe/bombetta_{{data.image}}.png" *ngIf="data.clicked"></ion-img>
+  <ion-img width="100%" height="100%" src="/assets/bombe/bombetta_vuota.png" *ngIf="!data.clicked"></ion-img>
 </div>
