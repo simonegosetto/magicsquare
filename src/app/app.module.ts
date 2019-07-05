@@ -12,6 +12,7 @@ import { Network } from '@ionic-native/network/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { Device } from '@ionic-native/device/ngx';
 import {ModalQueueComponent} from './multiplayer/modal-queue.component';
+import {Gyroscope} from '@ionic-native/gyroscope/ngx';
 
 @NgModule({
   declarations: [AppComponent, ModalQueueComponent],
@@ -28,6 +29,7 @@ import {ModalQueueComponent} from './multiplayer/modal-queue.component';
     SplashScreen,
     Network,
     Device,
+    Gyroscope,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

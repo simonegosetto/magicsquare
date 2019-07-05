@@ -5,6 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {GlobalService} from './core/services/global.service';
 import {Network} from '@ionic-native/network/ngx';
+import {Gyroscope, GyroscopeOrientation} from '@ionic-native/gyroscope/ngx';
+import {GyroscopeOptions} from '@ionic-native/gyroscope/ngx';
 
 @Component({
   selector: 'app-root',
@@ -29,10 +31,13 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private network: Network,
-    public gs: GlobalService
+    public gs: GlobalService,
+    private gyroscope: Gyroscope
   ) {
     this.initializeApp();
   }
+
+  orientation: GyroscopeOrientation;
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -57,15 +62,32 @@ export class AppComponent {
       // connectSubscription.unsubscribe();
       // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-        // controllo token
-        if (localStorage.getItem('token') === undefined || localStorage.getItem('token') === null ) {
-            if (this.gs.isOnline()) {
-              this.gs.sendUUID();
-            }
-        } else {
-            this.gs.user = JSON.parse(localStorage.getItem('user'));
-            this.gs.init();
-        }
+      // controllo token
+      if (localStorage.getItem('token') === undefined || localStorage.getItem('token') === null ) {
+          if (this.gs.isOnline()) {
+            this.gs.sendUUID();
+          }
+      } else {
+          this.gs.user = JSON.parse(localStorage.getItem('user'));
+          this.gs.init();
+      }
+
+      const options: GyroscopeOptions = {
+          frequency: 1000
+      };
+
+      /*this.gyroscope.getCurrent(options)
+          .then((orientation: GyroscopeOrientation) => {
+              console.log(orientation.x, orientation.y, orientation.z, orientation.timestamp);
+          })
+          .catch()*/
+      if (!this.gs.isDesktop()) {
+          this.gyroscope.watch()
+              .subscribe((orientation: GyroscopeOrientation) => {
+                  this.orientation = orientation;
+              });
+      }
+
     });
   }
 }
