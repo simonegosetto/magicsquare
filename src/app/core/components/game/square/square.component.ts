@@ -8,10 +8,10 @@ import {Square} from './square';
 })
 export class SquareComponent  {
 
-  constructor() {}
+    constructor() {}
 
-  @Input() data: Square;
-  @Input() dataPrev: Square;
+    @Input() data: Square;
+    @Input() dataPrev: Square;
 
     squareSelectPrev() {
         if (this.dataPrev) {
@@ -19,7 +19,7 @@ export class SquareComponent  {
             const {x: x2, y: y2} = this.dataPrev;
             if (x === x2 && y === y2) {
                 return {
-                    'background-color': '#efefef'
+                    'background-color': '#aaa'
                 };
             } else {
                 return '';
