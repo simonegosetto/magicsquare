@@ -1,6 +1,7 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {GlobalService} from '../core/services/global.service';
 import {ModalService} from '../core/services/modal.service';
+import {GameConfig} from '../core/config/game-config.enum';
 
 @Component({
   selector: 'app-modal-queue',
@@ -45,10 +46,10 @@ export class ModalQueueComponent implements AfterViewInit  {
                             this.close(opponent);
                         } else {
                             localStorage.setItem('queueID', opponent.id);
-                            this.timeOutQueue = setTimeout(() => this.checkQueue(), 1000);
+                            this.timeOutQueue = setTimeout(() => this.checkQueue(), GameConfig.QUEUE_REFRESH_RATE);
                         }
                     } else {
-                        this.timeOutQueue = setTimeout(() => this.checkQueue(), 1000);
+                        this.timeOutQueue = setTimeout(() => this.checkQueue(), GameConfig.QUEUE_REFRESH_RATE);
                     }
                 },
                 error => {

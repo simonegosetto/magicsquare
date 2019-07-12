@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GlobalService} from '../core/services/global.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Square} from '../core/components/game/square/square';
+import {GameConfig} from '../core/config/game-config.enum';
 
 @Component({
   selector: 'app-multiplayer',
@@ -51,12 +52,12 @@ export class MultiplayerPage implements OnInit, OnDestroy {
               if (this.opponent.finish === 1) {
                 this.checkGameFinished();
               } else {
-                  this.timeOutGame = setTimeout(() => this.getDetails(), 2000);
+                  this.timeOutGame = setTimeout(() => this.getDetails(), GameConfig.MULTIPLAYER_REFRESH_RATE);
               }
           },
           error => {
               this._gs.toast.present(error.message, 5000);
-              this.timeOutGame = setTimeout(() => this.getDetails(), 2000);
+              this.timeOutGame = setTimeout(() => this.getDetails(), GameConfig.MULTIPLAYER_REFRESH_RATE);
           });
     }
 
