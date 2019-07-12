@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Profile Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-card-subtitle>Nickname</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-input #nicknameInput
+                   type="text"
+                   name="nickname"
+                   placeholder="Insert your nickname"
+                   [ngModel]="gs?.user?.nickname"
+                   maxlength="255" ></ion-input>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-button class="button-block main-button" color="success" (click)="update(nicknameInput)" >
+    Update
+  </ion-button>
+</ion-footer>

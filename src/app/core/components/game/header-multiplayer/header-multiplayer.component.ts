@@ -5,7 +5,7 @@ import {Component, Input} from '@angular/core';
   template: `
       <ion-row class="ion-padding" align-items-center>
           <ion-col [size]="3" class="ion-text-left">
-              {{user?.uuid}}<br>
+              {{user?.nickname || user?.uuid}}<br>
               <ion-badge color="success" [hidden]="user?.finish !== 1">FINISHED</ion-badge>
           </ion-col>
 

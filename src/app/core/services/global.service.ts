@@ -27,7 +27,6 @@ export class GlobalService {
     public http_json_headers = new HttpHeaders().set('content-type', 'application/json').set('Access-Control-Allow-Origin', '*');
     public user: Users;
     private logged = true;
-    public isDevMode = isDevMode();
     public _config = {
         GTW_DBOX: environment.backendUrl + '/FD_DataServiceGatewayUUID.php'
     };

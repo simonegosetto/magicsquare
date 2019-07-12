@@ -23,6 +23,11 @@ export class AppComponent {
       title: 'Tutorial',
       url: '/tutorial',
       icon: 'school'
+    },
+    {
+      title: 'Settings',
+      url: '/settings',
+      icon: 'cog'
     }
   ];
 

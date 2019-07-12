@@ -1,7 +1,7 @@
 <app-counter [count]="squareCounter()" *ngIf="!multiplayer"></app-counter>
 
 <app-header-multiplayer *ngIf="multiplayer"
-                        [user]="{uuid: gs.uuid(), points: squareCounter(), finish: isFinished(squarePrev) ? 1 : 0}"
+                        [user]="{uuid: gs.uuid(), nickname: gs?.user?.nickname, points: squareCounter(), finish: isFinished(squarePrev) ? 1 : 0}"
                         [opponent]="opponent"
 ></app-header-multiplayer>
 
