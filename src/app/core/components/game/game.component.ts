@@ -84,7 +84,7 @@ export class GameComponent implements OnInit {
     gameCheckIfFinisched(squareClicked) {
         if (this.isFinished(squareClicked)) {
             this.gameFinished.emit(null);
-            this.toast.present('Finito con ' + this.squareCounter() + ' punti !')/*.then(() => this.gameReset())*/;
+            this.toast.present('Finito con ' + this.squareCounter() + ' punti !', 0, true)/*.then(() => this.gameReset())*/;
         }
     }
 
