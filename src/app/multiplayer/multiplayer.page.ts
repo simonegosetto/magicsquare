@@ -61,8 +61,8 @@ export class MultiplayerPage implements OnInit, OnDestroy {
           });
     }
 
-    scoreChange(squareClicked: Square) {
-        this._gs.callGateway('Np+lHDaWGdny3dnlAbvgUsv6H207iJiItUvIrYEXwvEtWy0tSVYtWy1rruDyrU4qF071gGIG4T02z0fNQxuv8UtfCrSUegXJjQ@@',
+    async scoreChange(squareClicked: Square) {
+        await  this._gs.callGateway('Np+lHDaWGdny3dnlAbvgUsv6H207iJiItUvIrYEXwvEtWy0tSVYtWy1rruDyrU4qF071gGIG4T02z0fNQxuv8UtfCrSUegXJjQ@@',
             squareClicked.x + ',' + squareClicked.y + ',\'' + this._gs.uuid() + '\',' + this.matchID, false).subscribe(data => {
                 if (data.hasOwnProperty('error')) {
                     this._gs.toast.present(data.error);
@@ -87,18 +87,18 @@ export class MultiplayerPage implements OnInit, OnDestroy {
     }
 
     checkGameFinished() {
-        let message = 'YOU ';
+        let message = '';
         let color: string;
         if (this.matchOwn.finish === 1 && this.opponent.finish === 1) {
             console.log('you', this.matchOwn.points, 'opponent', this.opponent.points);
             if (this.matchOwn.points > this.opponent.points) {
-                message += 'WON !';
+                message += 'WINNER !';
                 color = 'success';
             } else if (this.matchOwn.points === this.opponent.points) {
                 message += 'DREW !';
                 color = 'medium';
             } else {
-                message += 'LOST !';
+                message += 'LOSER !';
                 color = 'danger';
             }
             this._gs.toast.present(message, 0, true, color); // .then(() => this._router.navigateByUrl('home'));
