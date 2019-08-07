@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUrl: 'https://task.simonegosetto.tech/BackEnd'
+  backendUrl: 'https://backend.100bomb.com'
 };
