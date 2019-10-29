@@ -24,7 +24,7 @@ export class GlobalService {
     ) { }
 
     private online = false;
-    public http_json_headers = new HttpHeaders().set('content-type', 'application/json').set('Access-Control-Allow-Origin', '*');
+    public http_json_headers = new HttpHeaders().set('content-type', 'application/x-www-form-urlencoded');
     public user: Users;
     private logged = true;
     public _config = {

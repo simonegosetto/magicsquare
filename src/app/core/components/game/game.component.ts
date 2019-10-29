@@ -113,6 +113,7 @@ export class GameComponent implements OnInit {
         const {x, y} = squareCurrent;
         const xyCurrent = x.toString() + y.toString();
         const movesPossible = this.squareCoordinates[xyCurrent];
+        console.log(movesPossible);
         movesPossible.forEach(move => {
             this.squaresRows.forEach((row) => {
                 row.forEach((col: Square) => {

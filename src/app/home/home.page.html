@@ -29,12 +29,17 @@
 
   <ion-row>
     <ion-col>
-      <ion-button expand="block" color="primary" (click)="navTo('singleplayer')">Single Player</ion-button>
+      <ion-button expand="block" color="primary" (click)="navTo('singleplayer')">Single Player Classic</ion-button>
     </ion-col>
   </ion-row>
   <ion-row>
     <ion-col>
-      <ion-button expand="block" color="success" (click)="navTo('multiplayer')" [disabled]="!gs?.isOnline()">Multiplayer Online</ion-button>
+      <ion-button expand="block" color="success" (click)="navTo('multiplayer')" [disabled]="!gs?.isOnline()">Multiplayer Classic (Online)</ion-button>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="danger" (click)="navTo('multiplayer')" [disabled]="!gs?.isOnline()">Multiplayer Battle (Online)</ion-button>
     </ion-col>
   </ion-row>
   <ion-row>

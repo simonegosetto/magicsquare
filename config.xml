@@ -89,4 +89,5 @@
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-gyroscope" spec="^0.1.4" />
     <engine name="android" spec="^8.0.0" />
+    <engine name="browser" spec="5.0.4" />
 </widget>
